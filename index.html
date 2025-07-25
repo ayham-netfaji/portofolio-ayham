@@ -3,9 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/portofolio/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="description" content="Ayham Netfaji - Passionate Web Developer and Student at Jain University specializing in Front-End Development">
+    <meta name="theme-color" content="#6b442e">
+    <title>Ayham Netfaji - Web Developer Portfolio</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/portofolio/style.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600&display=swap" as="style" crossorigin>
+    
+    <!-- Critical CSS inlined for faster initial render -->
+    <style>
+        /* Critical above-the-fold styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(to bottom, #422c1f, #6b442e);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: #ecd9b0;
+            backdrop-filter: blur(10px);
+            z-index: 10000;
+        }
+        
+        .navlinks {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            font-size: 20px;
+            box-shadow: -8px 1px 10px 2px black;
+        }
+        
+        .mainname {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: 150px auto;
+            font-size: 80px;
+            line-height: 100px;
+            font-family: "Bebas Neue", serif;
+            letter-spacing: 5px;
+            position: relative;
+        }
+        
+        .firstname {
+            color: #ecd9b0;
+        }
+        
+        .lastname {
+            display: inline-block;
+            color: #dac9aa;
+            font-size: 112px;
+            transform: rotatey(180deg);
+            width: 289px;
+        }
+    </style>
+    
+    <!-- Load non-critical CSS asynchronously -->
+    <link rel="stylesheet" href="/portofolio/style.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/portofolio/style.css"></noscript>
+    
+    <!-- Load fonts with font-display swap for better performance -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600&display=swap" media="print" onload="this.media='all'">
+    
+    <!-- Load FontAwesome asynchronously -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
 </head>
 <body>
     <nav class="navbar" id="home"> 
@@ -36,7 +108,15 @@
       
          <div class="picmaincontainer">
             <div class="piccontainer">
-                <img src="/portofolio/WhatsApp Image 2025-02-12 at 05.27.07_1303fb9c.jpg" alt="">
+                <!-- Lazy load the image with WebP support -->
+                <picture>
+                    <source srcset="/portofolio/profile-optimized.webp" type="image/webp">
+                    <img src="/portofolio/WhatsApp Image 2025-02-12 at 05.27.07_1303fb9c.jpg" 
+                         alt="Ayham Netfaji Profile Picture" 
+                         loading="lazy"
+                         width="300" 
+                         height="300">
+                </picture>
             </div>
             <div class="picexp">+1 YRS</div>
             <div class="picproj">3 projects</div>
@@ -113,12 +193,48 @@
     <footer>
         <p>&copy; 2025 Ayham Netfaji. All rights reserved.</p>
     </footer>
+    
+    <!-- Optimized JavaScript with defer for better performance -->
     <script>
-        document.querySelector('.download-btn').addEventListener('click', function(e) {
-        if(!confirm('Do you want to download the CV?')) {
-          e.preventDefault();
+        // Use event delegation for better performance
+        document.addEventListener('DOMContentLoaded', function() {
+            const downloadBtn = document.querySelector('.download-btn');
+            if (downloadBtn) {
+                downloadBtn.addEventListener('click', function(e) {
+                    if(!confirm('Do you want to download the CV?')) {
+                        e.preventDefault();
+                    }
+                });
+            }
+            
+            // Add intersection observer for scroll animations (optional)
+            if ('IntersectionObserver' in window) {
+                const observerOptions = {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px'
+                };
+                
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                        }
+                    });
+                }, observerOptions);
+                
+                // Observe elements for lazy animations
+                document.querySelectorAll('.container2 > div').forEach(el => {
+                    observer.observe(el);
+                });
+            }
+        });
+        
+        // Simple sendEmail placeholder - replace with actual implementation
+        function sendEmail() {
+            // Add your email sending logic here
+            alert('Email functionality needs to be implemented with a backend service');
+            return false;
         }
-      });
     </script>
 </body>
 </html>
